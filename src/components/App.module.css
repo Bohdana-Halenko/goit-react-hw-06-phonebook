@@ -1,0 +1,12 @@
+.container {
+  width: 420px;
+  background-color: #e6e6e6;
+  margin: 50px auto;
+  padding: 10px 40px;
+  border-radius: 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 1), -20px 0 20px -20px rgba(0, 0, 0, 0.8),
+    20px 0 20px -20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.1) inset;
+}
+.title {
+  text-align: center;
+}
