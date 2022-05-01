@@ -1,90 +1,68 @@
 import s from './App.module.css';
-import React, { Component } from 'react';
+// import React, { Component } from 'react';
 import ContactForm from './ContactForm/ContactForm';
 import Filter from './Filter/Filter';
 import ContactList from './ContactList/ContactList';
 import ContactItem from './ContactItem/ContactItem';
+import { useEffect } from 'react';
+import { nanoid } from 'nanoid';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteItems, setFilter, setItems } from 'redux/contacts-slice';
 
 
-class App extends Component { 
-  state = {
-    contacts: [
-      { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
-      { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
-      { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
-      { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
-    ],
-    filter: ''
-  };
+function App() {
+  const dispatch = useDispatch();
+  const contacts = useSelector(store => store.books.contacts.items);
+  const filter = useSelector(store => store.books.contacts.filter);
 
-  // Xранение контактов телефонной книги в localStorage
-  componentDidUpdate(prevState, prevProps) {
-    if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+  useEffect(() => {
+    const parsContacts = JSON.parse(localStorage.getItem('contacts'));
+    if (parsContacts) {
+      parsContacts.forEach(el => dispatch(setItems(el)));
     }
-  }
+  }, [dispatch]);
 
-  componentDidMount() {
-    const contacts = localStorage.getItem('contacts');
-    const parsedContacts = JSON.parse(contacts);
+  useEffect(
+    () => localStorage.setItem('contacts', JSON.stringify(contacts)),
+    [contacts]
+  );
 
-    if (parsedContacts) {
-      this.setState({ contacts: parsedContacts });
-    }
-  }
-
-
-
-  addContacts = data => { 
-    const { contacts } = this.state;
-    const names = contacts.map(contact => contact.name.toLowerCase());
-
-    //Запрет добавлять контакты, имена которых уже есть в телефонной книге
-    names.includes(data.name.toLowerCase())
+  const addContacts = data => {
+    contacts.find(
+      contact => contact?.name?.toLowerCase() === data.name.toLowerCase()
+    )
       ? alert(`${data.name} is already in contact`)
-      : this.setState(prevState => ({
-          contacts: [data, ...prevState.contacts],
-      }))
+      : dispatch(setItems({ ...data, id: nanoid() }));
   };
 
-  deleteContact = contactId => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== contactId),
-    }));
+  const deleteContact = contactId => {
+    dispatch(deleteItems(contactId));
   };
 
-  changeFilter = e => {
-    this.setState({ filter: e.currentTarget.value });
-  };
-
-  getVisibleContact = () => {
-    const { filter, contacts } = this.state;
-    const normalizeFilter = filter.toLowerCase();
+  const getVisibleContact = () => {
+    const normalizedfilter = filter.toLowerCase();
 
     return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizeFilter),
+      contact.name.toLowerCase().includes(normalizedfilter)
     );
   };
-  
-  render() {
-    const { filter } = this.state;
-    const visibleContact = this.getVisibleContact();
 
-    return (
-      <>
-          <div className={s.container}>
+  const changeFilter = e => {
+    dispatch(setFilter(e.currentTarget.value));
+  };
+  const visibleContact = getVisibleContact();
+  return (
+    <div className={s.container}>
             <h1 className={s.title}>Phonebook</h1>
-            <ContactForm onSubmit={this.addContacts} />
+            <ContactForm onSubmit={addContacts} />
             <h2 className={s.title}>Contacts</h2>
-            <Filter value={filter} onChange={this.changeFilter} />
+            <Filter value={filter} onChange={changeFilter} />
             <ContactList>
                 <ContactItem contacts={visibleContact}
-                onDeleteContact={this.deleteContact}/>
+                onDeleteContact={deleteContact}/>
             </ContactList>
           </div>
-      </>
-    );
-  }
+  );
 }
 
 export default App;
