@@ -18,7 +18,6 @@ function App() {
   useEffect(() => {
     const parsContacts = JSON.parse(localStorage.getItem('contacts'));
     if (parsContacts) {
-      // dispatch(setItems(parsContacts));
       parsContacts.forEach(el => dispatch(setItems(el)));
     }
   }, [dispatch]);

@@ -15,7 +15,6 @@ export const store = configureStore({
   reducer: {
     books: contactSlice,
   },
-  
   middleware(getDefaultMiddleware) {
     return getDefaultMiddleware({
       serializableCheck: {

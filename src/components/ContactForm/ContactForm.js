@@ -1,7 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { useState } from 'react';
-// import { nanoid } from 'nanoid';
 import s from './ContactForm.module.css';
 
 function ContactForm({ onSubmit }) {
@@ -28,11 +27,10 @@ function ContactForm({ onSubmit }) {
     };
 
     return (
-        <form onSubmit={e => {
-            e.preventDefault();
+        <form onSubmit={e => {e.preventDefault();
             onSubmit({ name, number });
             reset();
-        }}
+            }}
             className={s.formWrap}>
             <div className={s.inputWrap}>
                 <label className={s.label}>Name</label>
@@ -60,7 +58,7 @@ function ContactForm({ onSubmit }) {
                     required
                 />
             </div>
-            <button className={s.button} type='submit'>
+            <button className={s.button} type="submit">
                 Add contact
             </button>
         </form>

@@ -2,8 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import s from './Filter.module.css';
 
-
-const Filter = ({ filter, onChange }) => {
+function Filter({ filter, onChange }) {
     return (
         <div className={s.filterWrap}>
             <label className={s.label}>Find contact by name</label>
