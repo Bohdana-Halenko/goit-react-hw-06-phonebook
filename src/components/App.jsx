@@ -18,6 +18,7 @@ function App() {
   useEffect(() => {
     const parsContacts = JSON.parse(localStorage.getItem('contacts'));
     if (parsContacts) {
+      // dispatch(setItems(parsContacts));
       parsContacts.forEach(el => dispatch(setItems(el)));
     }
   }, [dispatch]);
@@ -51,17 +52,18 @@ function App() {
     dispatch(setFilter(e.currentTarget.value));
   };
   const visibleContact = getVisibleContact();
+
   return (
     <div className={s.container}>
-            <h1 className={s.title}>Phonebook</h1>
-            <ContactForm onSubmit={addContacts} />
-            <h2 className={s.title}>Contacts</h2>
-            <Filter value={filter} onChange={changeFilter} />
-            <ContactList>
-                <ContactItem contacts={visibleContact}
-                onDeleteContact={deleteContact}/>
-            </ContactList>
-          </div>
+      <h1 className={s.title}>Phonebook</h1>
+      <ContactForm onSubmit={addContacts} />
+      <h2 className={s.title}>Contacts</h2>
+      <Filter filter={filter} onChange={changeFilter} />
+      <ContactList>
+        <ContactItem contacts={visibleContact}
+          onDeleteContact={deleteContact}/>
+      </ContactList>
+    </div>
   );
 }
 

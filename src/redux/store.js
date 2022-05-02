@@ -3,10 +3,10 @@ import {
   persistStore,
   FLUSH,
   REHYDRATE,
-  PERSIST,
-  REGISTER,
   PAUSE,
+  PERSIST,
   PURGE,
+  REGISTER,
 } from 'redux-persist';
 import { contactSlice } from './contacts-slice';
 
