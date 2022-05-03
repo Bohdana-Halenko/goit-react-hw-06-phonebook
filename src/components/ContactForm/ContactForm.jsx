@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { StyledForm } from './Form.styled';
 import PropeTypes from 'prop-types';
+import s from './ContactForm.module.css';
 
-const Form = ({ onSubmit }) => {
+const ContactForm = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
@@ -35,10 +35,11 @@ const Form = ({ onSubmit }) => {
   };
 
   return (
-    <StyledForm onSubmit={handleSubmit}>
-      <label>
-        <span>Name</span>
+    <form onSubmit={handleSubmit} className={s.formWrap}>
+      <label className={s.inputWrap}>
+        <span className={s.label}>Name</span>
         <input
+          className={s.input}
           type="text"
           name="name"
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -48,9 +49,10 @@ const Form = ({ onSubmit }) => {
           value={name}
         />
       </label>
-      <label>
-        <span>Phone</span>
+      <label className={s.inputWrap}>
+        <span className={s.label}>Phone</span>
         <input
+          className={s.input}
           type="tel"
           name="number"
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -60,13 +62,13 @@ const Form = ({ onSubmit }) => {
           value={number}
         />
       </label>
-      <button type="sabmit">Add Contact</button>
-    </StyledForm>
+      <button className={s.button} type="sabmit">Add Contact</button>
+    </form>
   );
 };
 
-Form.propTypes = {
+ContactForm.propTypes = {
   props: PropeTypes.func,
 };
 
-export default Form;
+export default ContactForm;

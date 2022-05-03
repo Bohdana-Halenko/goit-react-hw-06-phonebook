@@ -1,12 +1,12 @@
-import { StyledFilter } from './Filter.styled';
+import s from './Filter.module.css';
 import PropeTypes from 'prop-types';
 
 const Filter = ({ filterChange, value }) => {
   return (
-    <StyledFilter>
-      Find contacts by name
-      <input type="text" onChange={filterChange} value={value} />
-    </StyledFilter>
+    <div className={s.filterWrap}>
+      <label className={s.label}>Find contact by name</label>
+      <input type="text" onChange={filterChange} value={value} className={s.input}/>
+    </div>
   );
 };
 

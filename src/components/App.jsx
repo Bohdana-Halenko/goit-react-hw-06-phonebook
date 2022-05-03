@@ -2,10 +2,11 @@ import { nanoid } from 'nanoid';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteItems, setFilter, setItems } from 'redux/bookSlice';
-import Contacts from './Contacns';
+import ContactItem from './ContactItem';
 import Filter from './Filter';
-import Form from './Form';
-import Section from './Section';
+import ContactForm from './ContactForm';
+import ContactList from './ContactList';
+// import ContactItem from './ContactItem';
 
 const App = () => {
   const contacts = useSelector(store => store.books.contacts.items);
@@ -59,12 +60,12 @@ const App = () => {
   const contactsList = handlesFilterOfContacts();
 
   return (
-    <Section title="Phonebook">
-      <Form onSubmit={handleContact} />
+    <ContactList title="Phonebook">
+      <ContactForm onSubmit={handleContact} />
       <h2>Contacts</h2>
       <Filter value={filter} filterChange={handleFilterChange} />
-      <Contacts contacts={contactsList} onDelete={deleteContact} />
-    </Section>
+      <ContactItem contacts={contactsList} onDelete={deleteContact} />
+    </ContactList>
   );
 };
 
