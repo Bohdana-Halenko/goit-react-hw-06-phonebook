@@ -1,23 +1,21 @@
-import s from './App.module.css';
-// import React, { Component } from 'react';
-import ContactForm from './ContactForm/ContactForm';
-import Filter from './Filter/Filter';
-// import ContactList from './ContactList/ContactList';
-import ContactItem from './ContactItem/ContactItem';
 import { useEffect } from 'react';
+import ContactForm from 'components/ContactForm';
 import { nanoid } from 'nanoid';
+import Filter from 'components/Filter';
+import ContactList from 'components/ContactList';
+import './App.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteItems, setFilter, setItems } from 'redux/contacts-slice';
-
+import { deleteItems, setFilter, setItems } from 'redux/contactSlice';
 
 function App() {
   const dispatch = useDispatch();
-  const contacts = useSelector(state => state.contacts.items);
-  const filter = useSelector(state => state.contacts.filter);
+  const contacts = useSelector(store => store.books.contacts.items);
+  const filter = useSelector(store => store.books.contacts.filter);
 
   useEffect(() => {
     const parsContacts = JSON.parse(localStorage.getItem('contacts'));
     if (parsContacts) {
+      // dispatch(setItems(parsContacts));
       parsContacts.forEach(el => dispatch(setItems(el)));
     }
   }, [dispatch]);
@@ -35,38 +33,30 @@ function App() {
       : dispatch(setItems({ ...data, id: nanoid() }));
   };
 
-  // const deleteContact = contactId => {
-  //   dispatch(deleteItems(contactId));
-  // };
-
-  const deleteContact = e => {
-    const contactId = e.currentTarget.parentNode.id;
+  const deleteContact = contactId => {
     dispatch(deleteItems(contactId));
   };
 
   const getVisibleContact = () => {
     const normalizedfilter = filter.toLowerCase();
 
-    const searchContact = contacts.filter(contact =>
+    return contacts.filter(contact =>
       contact.name.toLowerCase().includes(normalizedfilter)
     );
-    return searchContact;
   };
 
   const changeFilter = e => {
     dispatch(setFilter(e.currentTarget.value));
   };
   const visibleContact = getVisibleContact();
-
   return (
-    <div className={s.container}>
-      <h1 className={s.title}>Phonebook</h1>
+    <div>
+      <h1>Phonebook</h1>
       <ContactForm onSubmit={addContacts} />
-      <h2 className={s.title}>Contacts</h2>
-      <Filter value={filter} onChange={changeFilter} />
-      <ContactItem contacts={visibleContact}
-          onDeleteContact={deleteContact}>
-      </ContactItem>
+
+      <h2>Contacts</h2>
+      <Filter filter={filter} onChange={changeFilter} />
+      <ContactList onDeleteContact={deleteContact} contacts={visibleContact} />
     </div>
   );
 }

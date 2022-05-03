@@ -19,8 +19,8 @@ function ContactItem({ contacts, onDeleteContact }) {
 };
 
 ContactItem.propTypes = {
-    contacts: propTypes.array.isRequired,
-    onDeleteContact: propTypes.func.isRequired,
+    contacts: propTypes.array,
+    onDeleteContact: propTypes.func,
 };
 
 export default ContactItem;
