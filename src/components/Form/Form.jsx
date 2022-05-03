@@ -1,18 +1,12 @@
 import { useState } from 'react';
+import { StyledForm } from './Form.styled';
+import PropeTypes from 'prop-types';
 
-import s from './ContactForm.module.css';
-import PropTypes from 'prop-types';
-
-function ContactForm({ onSubmit }) {
+const Form = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
 
-  const reset = () => {
-    setName('');
-    setNumber('');
-  };
-
-  const handleChange = e => {
+  const handleInputGange = e => {
     const { name, value } = e.currentTarget;
 
     switch (name) {
@@ -22,59 +16,57 @@ function ContactForm({ onSubmit }) {
       case 'number':
         setNumber(value);
         break;
-
       default:
-        break;
+        return;
     }
   };
 
+  const handleSubmit = e => {
+    e.preventDefault();
+
+    onSubmit({ name, number });
+
+    reset();
+  };
+
+  const reset = () => {
+    setName('');
+    setNumber('');
+  };
+
   return (
-    <form
-      className={s.form}
-      onSubmit={e => {
-        e.preventDefault();
-        onSubmit({ name, number });
-        reset();
-      }}
-    >
-      <label className={s.label}>
-        Name
+    <StyledForm onSubmit={handleSubmit}>
+      <label>
+        <span>Name</span>
         <input
-          className={s.input}
           type="text"
-          onChange={handleChange}
           name="name"
-          value={name}
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
+          onChange={handleInputGange}
+          value={name}
         />
       </label>
-
-      <label className={s.label}>
-        Number
+      <label>
+        <span>Phone</span>
         <input
-          className={s.input}
           type="tel"
-          onChange={handleChange}
           name="number"
-          value={number}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
+          onChange={handleInputGange}
+          value={number}
         />
       </label>
-
-      <button className={s.btn} type="submit">
-        Add contact
-      </button>
-    </form>
+      <button type="sabmit">Add Contact</button>
+    </StyledForm>
   );
-}
-
-ContactForm.propTypes = {
-  name: PropTypes.string,
-  number: PropTypes.number,
 };
 
-export default ContactForm;
+Form.propTypes = {
+  props: PropeTypes.func,
+};
+
+export default Form;
