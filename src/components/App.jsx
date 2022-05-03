@@ -6,7 +6,8 @@ import ContactItem from './ContactItem';
 import Filter from './Filter';
 import ContactForm from './ContactForm';
 import ContactList from './ContactList';
-// import ContactItem from './ContactItem';
+import s from './App.module.css';
+
 
 const App = () => {
   const contacts = useSelector(store => store.books.contacts.items);
@@ -52,20 +53,22 @@ const App = () => {
     return searchContact;
   };
 
-  const deleteContact = e => {
-    const contactId = e.currentTarget.parentNode.id;
+  const deleteContact = contactId => {
     dispatch(deleteItems(contactId));
   };
 
   const contactsList = handlesFilterOfContacts();
 
   return (
-    <ContactList title="Phonebook">
+    <div className={s.container}>
+      <ContactList title="Phonebook">
       <ContactForm onSubmit={handleContact} />
       <h2>Contacts</h2>
       <Filter value={filter} filterChange={handleFilterChange} />
       <ContactItem contacts={contactsList} onDelete={deleteContact} />
     </ContactList>
+    </div>
+    
   );
 };
 
