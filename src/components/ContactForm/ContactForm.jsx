@@ -54,22 +54,22 @@ const ContactForm = ({ onSubmit }) => {
     }
   };
 
-  // const handleSubmit = e => {
-  //   e.preventDefault();
+  const onSubmitHandler = e => {
+    e.preventDefault();
 
-  //   onSubmit({ name, number });
+    handleContact({ name, number });
 
-  //   reset();
-  // };
+    reset();
+  };
 
-  // const reset = () => {
-  //   setName('');
-  //   setNumber('');
-  // };
+  const reset = () => {
+    setName('');
+    setNumber('');
+  };
 
   return (
-    <form /*onSubmit={handleSubmit}*/ className={s.formWrap}
-      onSubmit={handleContact} >
+    <form onSubmit={onSubmitHandler} className={s.formWrap}
+      /*onSubmit={handleContact}*/ >
       <label className={s.inputWrap}>
         <span className={s.label}>Name</span>
         <input

@@ -8,16 +8,13 @@ const ContactItem = ({ contacts, onDelete }) => {
   const filter = useSelector(store => store.books.contacts.filter);
   const dispatch = useDispatch();
 
+  const deleteContact = contactId => dispatch(deleteItems(contactId));
+
   const handlesFilterOfContacts = () => {
     const value = filter.toLowerCase();
-    const searchContact = contacts.filter(contact =>
+    return contacts.filter(contact =>
       contact.name.toLowerCase().includes(value),
     );
-    return searchContact;
-  };
-
-  const deleteContact = contactId => {
-    dispatch(deleteItems(contactId));
   };
 
   const contactsList = handlesFilterOfContacts();
