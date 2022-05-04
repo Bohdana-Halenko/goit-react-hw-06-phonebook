@@ -1,10 +1,10 @@
 // import s from './ContactList.module.css';
 import PropeTypes from 'prop-types';
 
-const ContactList = ({ children, title }) => {
+const ContactList = ({ children }) => {
   return (
       <>
-        <h2>{title}</h2>
+        <h2>Phonebook</h2>
         {children}
       </>
   );

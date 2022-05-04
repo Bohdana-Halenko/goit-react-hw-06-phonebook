@@ -61,7 +61,7 @@ const App = () => {
 
   return (
     <div className={s.container}>
-      <ContactList title="Phonebook">
+      <ContactList>
       <ContactForm onSubmit={handleContact} />
       <h2>Contacts</h2>
       <Filter value={filter} filterChange={handleFilterChange} />
