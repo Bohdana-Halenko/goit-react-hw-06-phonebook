@@ -2,7 +2,6 @@ import { useState } from 'react';
 import PropeTypes from 'prop-types';
 import s from './ContactForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import { setItems } from 'redux/bookSlice';
 import { nanoid } from 'nanoid';
 
@@ -13,17 +12,6 @@ const ContactForm = ({ onSubmit }) => {
   const dispatch = useDispatch();
   const contacts = useSelector(state => state.contacts.items);
 
-  useEffect(() => {
-    const localStorageContacts = localStorage.getItem('contacts');
-
-    if (localStorageContacts) {
-      JSON.parse(localStorageContacts).forEach(el => dispatch(setItems(el)));
-    }
-  }, [dispatch]);
-
-  useEffect(() => {
-    window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
 
   const handleContact = userData => {
     let inputName = userData.name;

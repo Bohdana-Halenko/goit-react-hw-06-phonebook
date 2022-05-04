@@ -1,12 +1,26 @@
 import s from './ContactItem.module.css';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteItems } from 'redux/bookSlice';
+import { deleteItems, setItems } from 'redux/bookSlice';
+import { useEffect } from 'react';
 
 const ContactItem = ({ contacts, onDelete }) => {
 
   const dispatch = useDispatch();
   const filter = useSelector(state => state.contacts.filter);
+
+
+  useEffect(() => {
+    const localStorageContacts = localStorage.getItem('contacts');
+
+    if (localStorageContacts) {
+      JSON.parse(localStorageContacts).forEach(el => dispatch(setItems(el)));
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    window.localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
 
   const deleteContact = contactId => dispatch(deleteItems(contactId));
 
