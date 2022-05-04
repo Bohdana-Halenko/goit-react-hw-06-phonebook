@@ -1,10 +1,43 @@
 import { useState } from 'react';
 import PropeTypes from 'prop-types';
 import s from './ContactForm.module.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { setItems } from 'redux/bookSlice';
+import { nanoid } from 'nanoid';
+
 
 const ContactForm = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const contacts = useSelector(store => store.books.contacts.items);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const localStorageContacts = localStorage.getItem('contacts');
+
+    if (localStorageContacts) {
+      JSON.parse(localStorageContacts).forEach(el => dispatch(setItems(el)));
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    window.localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
+
+  const handleContact = userData => {
+    let inputName = userData.name;
+    const isIncludesName = contacts.find(
+      contact => contact?.name?.toLowerCase() === inputName.toLowerCase()
+    );
+
+    if (isIncludesName) {
+      return alert(`${inputName} is already is contacts`);
+    }
+
+    const contact = { ...userData, id: nanoid() };
+    dispatch(setItems(contact));
+  };
 
   const handleInputGange = e => {
     const { name, value } = e.currentTarget;
@@ -21,21 +54,22 @@ const ContactForm = ({ onSubmit }) => {
     }
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
+  // const handleSubmit = e => {
+  //   e.preventDefault();
 
-    onSubmit({ name, number });
+  //   onSubmit({ name, number });
 
-    reset();
-  };
+  //   reset();
+  // };
 
-  const reset = () => {
-    setName('');
-    setNumber('');
-  };
+  // const reset = () => {
+  //   setName('');
+  //   setNumber('');
+  // };
 
   return (
-    <form onSubmit={handleSubmit} className={s.formWrap}>
+    <form /*onSubmit={handleSubmit}*/ className={s.formWrap}
+      onSubmit={handleContact} >
       <label className={s.inputWrap}>
         <span className={s.label}>Name</span>
         <input
