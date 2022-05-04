@@ -1,13 +1,13 @@
 import s from './ContactItem.module.css';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, /*useSelector*/ } from 'react-redux';
 import { deleteItems, setItems } from 'redux/bookSlice';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const ContactItem = ({ contacts, onDelete }) => {
 
   const dispatch = useDispatch();
-  const filter = useSelector(state => state.contacts.filter);
+  const filter = useState('');
 
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const ContactItem = ({ contacts, onDelete }) => {
 
   const handlesFilterOfContacts = () => {
     const value = filter.toLowerCase();
-    return contacts.filter(contact =>
+    return contacts.filter((contact) =>
       contact.name.toLowerCase().includes(value),
     );
   };
