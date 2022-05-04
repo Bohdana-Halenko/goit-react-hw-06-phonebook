@@ -5,8 +5,8 @@ import { deleteItems } from 'redux/bookSlice';
 
 const ContactItem = ({ contacts, onDelete }) => {
 
-  const filter = useSelector(store => store.books.contacts.filter);
   const dispatch = useDispatch();
+  const filter = useSelector(state => state.contacts.filter);
 
   const deleteContact = contactId => dispatch(deleteItems(contactId));
 

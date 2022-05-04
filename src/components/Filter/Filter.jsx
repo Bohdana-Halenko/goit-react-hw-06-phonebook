@@ -5,8 +5,8 @@ import { setFilter } from 'redux/bookSlice';
 
 const Filter = ( /*{filterChange, value}*/ ) => {
 
-  const filter = useSelector(store => store.books.contacts.filter);
   const dispatch = useDispatch();
+  const filter = useSelector(state => state.contacts.filter);
 
   const handleFilterChange = e => {
     dispatch(setFilter(e.currentTarget.value));

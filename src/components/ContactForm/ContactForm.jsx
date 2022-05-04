@@ -10,8 +10,8 @@ import { nanoid } from 'nanoid';
 const ContactForm = ({ onSubmit }) => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const contacts = useSelector(store => store.books.contacts.items);
   const dispatch = useDispatch();
+  const contacts = useSelector(state => state.contacts.items);
 
   useEffect(() => {
     const localStorageContacts = localStorage.getItem('contacts');

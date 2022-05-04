@@ -1,29 +1,31 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  contacts: {
-    items: [],
-    filter: ''
-  }
-}
+  items: [
+    { id: 'id-1', name: 'Rosie Simpson', number: '459-12-56' },
+    { id: 'id-2', name: 'Hermione Kline', number: '443-89-12' },
+    { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
+    { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
+  ],
+  filter: '',
+};
 
 export const bookSlice = createSlice({
-  name: 'books',
+  name: 'contacts',
   initialState,
   reducers: {
     setItems: (state, action) => {
-      state.contacts.items.push(action.payload);
+      state.items.push(action.payload);
     },
-    setFilter: (state, action) => {
-      state.contacts.filter = action.payload;
+    setFilter: (state, { payload }) => {
+      state.filter = payload;
     },
-    deleteItems: (state, action) => {
-      const newItems = state.contacts.items.filter(contact => contact.id !== action.payload);
-      state.contacts.items = newItems
-    }
+    deleteItems: (state, { payload }) => {
+      state.filter = state.items.filter(item => item.id !== payload);
+    },
   },
-})
+});
 
-export const { setItems, setFilter, deleteItems } = bookSlice.actions
+export const { setFilter, setItems, deleteItems  } = bookSlice.actions;
 
-export default bookSlice.reducer
+export default bookSlice.reducer;
