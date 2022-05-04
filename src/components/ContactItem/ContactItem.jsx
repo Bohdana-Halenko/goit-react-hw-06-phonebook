@@ -11,7 +11,7 @@ const ContactItem = ({ contacts, onDelete }) => {
   const handlesFilterOfContacts = () => {
     const value = filter.toLowerCase();
     const searchContact = contacts.filter(contact =>
-      contact.name.toLowerCase().includes(value)
+      contact.name.toLowerCase().includes(value),
     );
     return searchContact;
   };
