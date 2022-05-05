@@ -2,7 +2,7 @@ import { useState } from 'react';
 import PropeTypes from 'prop-types';
 import s from './ContactForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { setItems } from 'redux/bookSlice';
+import { setItems } from 'redux/contactsSlice';
 import { nanoid } from 'nanoid';
 
 

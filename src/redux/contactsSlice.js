@@ -10,7 +10,7 @@ const initialState = {
   filter: '',
 };
 
-export const bookSlice = createSlice({
+export const contactsSlice = createSlice({
   name: 'contacts',
   initialState,
   reducers: {
@@ -25,6 +25,6 @@ export const bookSlice = createSlice({
   },
 });
 
-export const { setFilter, setItems, deleteItems } = bookSlice.actions;
+export const { setFilter, setItems, deleteItems } = contactsSlice.actions;
 
-export default bookSlice.reducer;
+export default contactsSlice.reducer;

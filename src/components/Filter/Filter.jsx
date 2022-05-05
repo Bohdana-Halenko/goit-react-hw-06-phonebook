@@ -1,7 +1,7 @@
 import s from './Filter.module.css';
 // import PropeTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { setFilter } from 'redux/bookSlice';
+import { setFilter } from 'redux/contactsSlice';
 
 const Filter = ( /*{filterChange, value}*/ ) => {
 
