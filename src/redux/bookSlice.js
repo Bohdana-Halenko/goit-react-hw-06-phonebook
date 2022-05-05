@@ -17,15 +17,14 @@ export const bookSlice = createSlice({
     setItems: (state, action) => {
       state.items.push(action.payload);
     },
-    setFilter: (state, { payload }) => {
-      state.filter = payload;
-    },
-    deleteItems: (state, { payload }) => {
-      state.filter = state.items.filter(item => item.id !== payload);
-    },
+    setFilter: (state, action) => action.payload,
+
+    deleteItems: (state, action) => {
+      state.items = state.items.filter(item => item.id !== action.payload);
+    }
   },
 });
 
-export const { setFilter, setItems, deleteItems  } = bookSlice.actions;
+export const { setFilter, setItems, deleteItems } = bookSlice.actions;
 
 export default bookSlice.reducer;
