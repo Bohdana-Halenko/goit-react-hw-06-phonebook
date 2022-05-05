@@ -8,9 +8,8 @@ const App = () => {
     <div className={s.container}>
       <h2 className={s.title}>Contacts</h2>
       <ContactForm />
-
-      <ContactList />
       <Filter />
+      <ContactList />
     </div>
   );
 };

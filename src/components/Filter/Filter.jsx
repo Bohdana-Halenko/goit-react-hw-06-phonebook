@@ -3,27 +3,32 @@ import s from './Filter.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from 'redux/contactsSlice';
 
-const Filter = ( /*{filterChange, value}*/ ) => {
-
+const Filter = () => {
   const dispatch = useDispatch();
   const filter = useSelector(state => state.contacts.filter);
 
   const handleFilterChange = e => {
     dispatch(setFilter(e.currentTarget.value));
-    // const { value } = e.currentTarget;
-    // dispatch(setFilter(value));
   };
 
   return (
-    <div className={s.filterWrap} /*value={filter} filterChange={handleFilterChange}*/>
-      <label className={s.label}>Find contact by name</label>
-      <input type="text" onChange={handleFilterChange} value={filter} className={s.input}/>
+    <div className={s.filterWrap}>
+      <label className={s.label} >
+        Find contact by name
+        <input
+          type="text"
+          name="filter"
+          onChange={handleFilterChange}
+          value={filter}
+          className={s.input}
+        />
+      </label>
     </div>
   );
 };
 
 // Filter.propTypes = {
-//   filterChange: PropeTypes.func,
+//   onChange: PropeTypes.func,
 //   value: PropeTypes.string,
 // };
 

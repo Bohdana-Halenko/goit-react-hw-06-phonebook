@@ -56,8 +56,7 @@ const ContactForm = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={onSubmitHandler} className={s.formWrap}
-      /*onSubmit={handleContact}*/ >
+    <form onSubmit={onSubmitHandler} className={s.formWrap}>
       <label className={s.inputWrap}>
         <span className={s.label}>Name</span>
         <input
